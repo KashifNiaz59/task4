@@ -3,9 +3,12 @@ import { useDispatch } from 'react-redux';
 import {setData} from './redux/actions/Index.js';
 import { Route, Switch } from 'react-router';
 
+import axios from 'axios';
+
 // import components
 import Navbar from './pages/Navbar.js';
 import Main from './pages/Main.js';
+
 import Business from './subPages/Business.js';
 import Entertainment from './subPages/Entertainment.js';
 import Food from './subPages/Food.js';
@@ -39,10 +42,26 @@ function App() {
 
       // console.log("news json : "+NewsJSON);
 
-      const response=await fetch('http://localhost:5000/news');
-      const data = await response.json();
-      console.log("data : "+data.news);
-      dispatch(setData(data.news));
+      // const response=await fetch('http://localhost:5000/news');
+      // const data = await response.json();
+      // console.log("data : "+data.news);
+      // dispatch(setData(data.news));
+
+    //   const request={
+    //     "category":"business"
+    // }
+
+      axios.get(
+          'http://localhost:5000/news'
+      ).then(res=>{
+          const apiData=res.data['news'];
+          dispatch(setData(apiData));
+          console.log("api data : "+apiData);
+      }).catch(
+          (error)=>console.log(" api error : "+error)
+      );
+
+
   }
 
 
@@ -54,6 +73,7 @@ function App() {
   useEffect(()=>{
       getData();
   },[]);
+
   return (
     <React.Fragment>
       <Navbar/>

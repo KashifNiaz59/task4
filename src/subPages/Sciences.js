@@ -41,7 +41,7 @@ const Main=()=>{
                         {
                             tempList.map((temp,index)=>{
                                 return(
-                                    <Card title={temp.title} img={temp.image}/>
+                                    <Card title={temp.title} img={temp.top_image} url={temp.url}/>
                                 );
                             })
                         }

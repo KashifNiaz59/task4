@@ -14,12 +14,13 @@ const Card = (props) => {
                     <div className="row">
                         <div className="col-10">
                             <p>{props.title}</p>
-
+                            <p>{props.cat}</p>
                         </div>
 
                         <div className="col-2">
-                            <img src={props.img} alt="" srcset="" />
+                            <img src={props.img} alt="" loading="lazy"/>
                         </div>
+                        
                     </div>
                 </a>
             </div>

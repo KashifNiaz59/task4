@@ -1,6 +1,8 @@
 import React,{useEffect} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 
+import axios from 'axios';
+
 // import from redux
 import {setData} from '../redux/actions/Index.js';
 
@@ -11,15 +13,30 @@ const Main=()=>{
     
     const dispatch = useDispatch();
 
-    const getData=async()=>{
+    const getData=()=>{
 
-        const response= await fetch("http://localhost:5000/news");
-        const data=await response.json();
+        // const response= await fetch("http://localhost:5000/news");
+        // const data=await response.json();
         
-        const tempData=data.news.filter((temp)=>temp.category=="business");
-        console.log("business filtered data : "+tempData);
+        // const tempData=data.news.filter((temp)=>temp.category=="business");
+        // console.log("business filtered data : "+tempData);
 
-        dispatch(setData(tempData));
+        // dispatch(setData(tempData));
+
+        const request={
+            "category":"business"
+        }
+
+        axios.get(
+            'http://localhost:5000/news',{header:request}
+        ).then(res=>{
+            const apiData=res.data['news'];
+            dispatch(setData(apiData));
+            console.log("api data : "+apiData);
+        }).catch(
+            (error)=>console.log(" api error : "+error)
+        );
+
     }
     useEffect(()=>{
         getData();
@@ -41,7 +58,7 @@ const Main=()=>{
                         {
                             tempList.map((temp,index)=>{
                                 return(
-                                    <Card title={temp.title} img={temp.image}/>
+                                    <Card title={temp.title} img={temp.top_image} url={temp.url} cat={temp.category}/>
                                 );
                             })
                         }

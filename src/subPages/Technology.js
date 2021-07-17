@@ -16,7 +16,7 @@ const Main=()=>{
         const response= await fetch("http://localhost:5000/news");
         const data=await response.json();
         
-        const tempData=data.news.filter((temp)=>temp.category=="sci/tech");
+        const tempData=data.news.filter((temp)=>temp.category==="sci/tech");
         console.log("business filtered data : "+tempData);
 
         dispatch(setData(tempData));
@@ -41,7 +41,7 @@ const Main=()=>{
                         {
                             tempList.map((temp,index)=>{
                                 return(
-                                    <Card title={temp.title} img={temp.image}/>
+                                    <Card title={temp.title} img={temp.top_image} url={temp.url}/>
                                 );
                             })
                         }
